@@ -1,0 +1,171 @@
+# This file was automatically generated and dropped off by Chef!
+
+# A script can run only for one database type and a specific host
+# at a time (mysql, postgresql)
+# But you can run it with multiple configuration files
+# You can obiously share the same base backup directory.
+
+# set to 1 to deactivate colors (cron)
+<% if node['smart_db_backup']['colorize'].to_s == 'true' %>
+NO_COLOR="0"
+<% else %>
+NO_COLOR="1"
+<% end %>
+
+# Choose Compression type. (gzip or bzip2 or xz)
+COMP="<%= @compression %>"
+
+#User to run dumps dump binaries as, defaults to logged in user
+RUNAS="<%= @runas %>"
+
+#DB user to connect to the database with, defaults to
+DBUSER="<%= @dbuser %>"
+
+######## Backup settings
+# one of: postgresql mysql
+BACKUP_TYPE="<%= @db_type %>"
+
+# Backup directory location e.g /backups
+TOP_BACKUPDIR="<%= @dir.chomp('/') %>"
+
+# do also global backup (use by postgresql to save roles/groups and only that
+<% if @global %>
+DO_GLOBAL_BACKUP="1"
+<% else %>
+DO_GLOBAL_BACKUP="0"
+<% end %>
+
+# HOW MANY BACKUPS TO KEEP & LEVEL
+# How many snapshots to keep (lastlog for dump)
+# How many per day
+KEEP_LASTS="<%= @keep_lasts %>"
+KEEP_DAYS="<%= @keep_days %>"
+KEEP_WEEKS="<%= @keep_weeks %>"
+KEEP_MONTHES="<%= @keep_months %>"
+KEEP_LOGS="<%= @keep_logs %>"
+
+# directories permission
+DPERM="<%= @dir_permission %>"
+
+# file permission
+FPERM="<%= @file_permission %>"
+
+# OWNER/GROUP
+OWNER="<%= @owner %>"
+GROUP="<%= @group %>"
+
+######## Database connection settings
+# host defaults to localhost
+# and without port we use a connection via socket
+HOST="<%= @host %>"
+PORT="<%= @port %>"
+
+# defaults to postgres on postgresql backup
+# as ident is used by default on many installs, we certainly
+# do not need either a password
+PASSWORD="<%= @password %>"
+
+# List of DBNAMES for Daily/Weekly Backup e.g. "DB1 DB2 DB3"
+DBNAMES="<%= @dbnames %>"
+
+# List of DBNAMES to EXLUCDE if DBNAMES are set to all (must be in " quotes)
+DBEXCLUDE="<%= @dbexclude %>"
+
+######### Elasticsearch
+ES_URI="<%= @elastic_uri %>"
+ES_USER=<%= node['smart_db_backup']['elasticsearch']['user'] %>
+ES_PASSWORD=<%= node['smart_db_backup']['elasticsearch']['password'] %>
+# path to snapshots (have to be added to path.repo in elasticsearch.yml)
+ES_SNAPSHOTS_DIR=<%= node['smart_db_backup']['elasticsearch']['snapshots_dir'] %>
+# elasticsearch daemon user
+
+######### Postgresql
+# binaries path
+PSQL=<%= node['smart_db_backup']['postgresql']['psql'] %>
+PG_DUMP=<%= node['smart_db_backup']['postgresql']['pg_dump'] %>
+PG_DUMPALL=<%= node['smart_db_backup']['postgresql']['pg_dumpall'] %>
+
+######## slapd
+SLAPCAT_ARGS=<%= node['smart_db_backup']['slapd']['args'] %>
+SLAPD_DIR=<%= node['smart_db_backup']['slapd']['dir'] %>
+
+# OPT string for use with pg_dump ( see man pg_dump )
+OPT=<%= node['smart_db_backup']['postgresql']['opt'] %>
+
+# OPT string for use with pg_dumpall ( see man pg_dumpall )
+OPTALL=<%= node['smart_db_backup']['postgresql']['optall'] %>
+
+######## MYSQL
+MYSQL_SOCK_PATHS=<%= node['smart_db_backup']['mysql']['sock_paths'] %>
+MYSQL=<%= node['smart_db_backup']['mysql']['mysql'] %>
+MYSQLDUMP=<%= node['smart_db_backup']['mysql']['mysqldump'] %>
+# do we disable mysqldump --single-transaction0
+MYSQLDUMP_NO_SINGLE_TRANSACTION=<%= node['smart_db_backup']['mysql']['no_single_transaction'] %>
+# disable to enable autocommit
+MYSQLDUMP_AUTOCOMMIT=<%= node['smart_db_backup']['mysql']['autocommit'] %>
+# set to enable complete inserts (true by default, disabling enable extended inserts)
+MYSQLDUMP_COMPLETEINSERTS=<%= node['smart_db_backup']['mysql']['completeinserts'] %>
+# do we disable mysqldump --lock-tables=false
+MYSQLDUMP_LOCKTABLES=<%= node['smart_db_backup']['mysql']['locktables'] %>
+# set to add extra dumps info
+MYSQLDUMP_DEBUG=<%= node['smart_db_backup']['mysql']['debug'] %>
+# set to disable dump routines
+MYSQLDUMP_NOROUTINES=<%= node['smart_db_backup']['mysql']['noroutines'] %>
+# do we use ssl to connect
+MYSQL_USE_SSL=<%= node['smart_db_backup']['mysql']['use_ssl'] %>
+
+######## mongodb
+MONGODB_PATH=<%= node['smart_db_backup']['mongodb']['path'] %>
+MONGODB_USER="<%= @db_user %>"
+MONGODB_PASSWORD="<%= @password %>"
+MONGODB_ARGS=<%= node['smart_db_backup']['mongodb']['args'] %>
+
+######## Redis
+REDIS_PATH=<%= node['smart_db_backup']['redis']['path'] %>
+
+######## Hooks (optionnal)
+# functions names which point to functions defined in your
+# configuration file
+# Pay attention not to make function names colliding with functions in the script
+
+#
+# All those hooks can call externals programs (eg: python scripts)
+# Look inside the shell script to know which variables you ll have
+# set in the context, but you ll have useful information available at
+# each stage like the dbname, etc.
+#
+
+# Function to run before backups (uncomment to use)
+#pre_backup_hook() {
+#}
+# Function to run after global backup  (uncomment to use)
+#post_global_backup_hook() {
+#}
+
+# Function to run after global backup  (uncomment to use)
+#post_global_backup_failure_hook() {
+#}
+
+# Fuction run after each database backup if the backup failed
+#post_db_backup_failure_hook() {
+#}
+
+# Function to run after each database backup (uncomment to use)
+#post_db_backup_hook() {
+#}
+
+# Function to run after backup rotation
+#post_rotate_hook() {
+#}
+
+# Function to run after backup orphan cleanup
+#post_cleanup_hook() {
+#}
+
+# Function run after backups (uncomment to use)
+#post_backup_hook="mycompany_postbackup"
+
+# Function to run after the recap mail emission
+#failure_hook() {
+#}
+# vim:set ft=sh:

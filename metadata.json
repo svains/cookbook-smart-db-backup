@@ -1,0 +1,33 @@
+{
+  "name": "smart_db_backup",
+  "description": "Set of scripts to backup various DBs (Mysql | Postgresql | Mongo | Redis | Elasticsearch | Slapd)\n                  recipe based on script from Mathieu Le Marec - Pasquet <kiorky@cryptelium.net>\n                  (https://github.com/kiorky/db_smart_backup)",
+  "long_description": "",
+  "maintainer": "Filip Výborný",
+  "maintainer_email": "svains@gmail.com",
+  "license": "BSD",
+  "platforms": {
+    "debian": ">= 6.0.0",
+    "ubuntu": ">= 10.4.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.0",
+  "source_url": "",
+  "issues_url": ""
+}
