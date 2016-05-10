@@ -3,9 +3,9 @@ default['smart_db_backup']['compression'] = 'gzip'
 default['smart_db_backup']['dir'] = '/var/backup'
 default['smart_db_backup']['global'] = 'true'
 
-default['smart_db_backup']['keep_lasts'] = '24'
+default['smart_db_backup']['keep_lasts'] = '1'
 default['smart_db_backup']['keep_days'] = '7'
-default['smart_db_backup']['keep_weeks'] = '35'
+default['smart_db_backup']['keep_weeks'] = '4'
 default['smart_db_backup']['keep_months'] = '3'
 default['smart_db_backup']['keep_logs'] = '60'
 
