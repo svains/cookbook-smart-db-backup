@@ -96,7 +96,7 @@ OPT=<%= node['smart_db_backup']['postgresql']['opt'] %>
 OPTALL=<%= node['smart_db_backup']['postgresql']['optall'] %>
 
 ######## MYSQL
-MYSQL_SOCK_PATHS=<%= node['smart_db_backup']['mysql']['sock_paths'] %>
+MYSQL_SOCK_PATHS=<%= @sock_paths %>
 MYSQL=<%= node['smart_db_backup']['mysql']['mysql'] %>
 MYSQLDUMP=<%= node['smart_db_backup']['mysql']['mysqldump'] %>
 # do we disable mysqldump --single-transaction0

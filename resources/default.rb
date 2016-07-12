@@ -100,6 +100,9 @@ attribute :keep_logs,
           [String, Integer],
           default: lazy { get_default(:keep_logs) }
 
+attribute :sock_paths,
+          [String],
+          default: lazy { get_default(:sock_paths) }
 
 def get_default(attribute)
   # User can override values per DB type, superior to global values
@@ -119,7 +122,7 @@ action :create do
   pass_attributes_to_template = %w(
     db_type dbnames dbexclude dbuser dir dir_permission
     file_permission compression global host port password group owner runas keep_lasts
-    keep_days keep_weeks keep_months keep_logs
+    keep_days keep_weeks keep_months keep_logs sock_paths
   )
 
   template config_file_path do
